@@ -7,19 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F44D0F2716AA40730074E83F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44D0F2616AA40730074E83F /* UIKit.framework */; };
-		F44D0F2916AA40730074E83F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44D0F2816AA40730074E83F /* Foundation.framework */; };
-		F44D0F2B16AA40730074E83F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44D0F2A16AA40730074E83F /* CoreGraphics.framework */; };
-		F44D0F3116AA40730074E83F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F44D0F2F16AA40730074E83F /* InfoPlist.strings */; };
-		F44D0F3316AA40730074E83F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44D0F3216AA40730074E83F /* main.m */; };
-		F44D0F3716AA40730074E83F /* TestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F44D0F3616AA40730074E83F /* TestAppDelegate.m */; };
-		F44D0F3916AA40730074E83F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = F44D0F3816AA40730074E83F /* Default.png */; };
-		F44D0F3B16AA40730074E83F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F44D0F3A16AA40730074E83F /* Default@2x.png */; };
-		F44D0F3D16AA40730074E83F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F44D0F3C16AA40730074E83F /* Default-568h@2x.png */; };
+		F4826E1016BCA44300DAEDE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44D0F2816AA40730074E83F /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F4826E0D16BCA44300DAEDE8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		F44D0F2216AA40730074E83F /* SmashKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmashKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F449148D16B4CF8D0095065D /* SKItemPagingScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKItemPagingScrollViewController.h; sourceTree = "<group>"; };
+		F449148E16B4CF8D0095065D /* SKItemPagingScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKItemPagingScrollViewController.m; sourceTree = "<group>"; };
 		F44D0F2616AA40730074E83F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F44D0F2816AA40730074E83F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F44D0F2A16AA40730074E83F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -32,16 +37,32 @@
 		F44D0F3816AA40730074E83F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		F44D0F3A16AA40730074E83F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		F44D0F3C16AA40730074E83F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		F44D0F4516AA40B50074E83F /* SKLineup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLineup.h; sourceTree = "<group>"; };
+		F44D0F4616AA40B50074E83F /* SKLineup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLineup.m; sourceTree = "<group>"; };
+		F44D0F4716AA40B50074E83F /* SKLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLayoutViewController.h; sourceTree = "<group>"; };
+		F44D0F4816AA40B50074E83F /* SKLayoutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLayoutViewController.m; sourceTree = "<group>"; };
+		F44D0F5416AA40B50074E83F /* SKItemButtonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKItemButtonViewController.h; sourceTree = "<group>"; };
+		F44D0F5516AA40B50074E83F /* SKItemButtonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKItemButtonViewController.m; sourceTree = "<group>"; };
+		F44D0F5C16AA40B50074E83F /* SKItemLabelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKItemLabelViewController.h; sourceTree = "<group>"; };
+		F44D0F5D16AA40B50074E83F /* SKItemLabelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKItemLabelViewController.m; sourceTree = "<group>"; };
+		F44D0FBD16AA71A40074E83F /* SKGradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKGradientButton.h; sourceTree = "<group>"; };
+		F44D0FBE16AA71A40074E83F /* SKGradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKGradientButton.m; sourceTree = "<group>"; };
+		F44D0FC316AA75C80074E83F /* SKGraphicsUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKGraphicsUtilities.h; sourceTree = "<group>"; };
+		F44D0FC416AA75C80074E83F /* SKGraphicsUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKGraphicsUtilities.m; sourceTree = "<group>"; };
+		F44D0FC716AB944B0074E83F /* SKPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPopupViewController.h; sourceTree = "<group>"; };
+		F44D0FC816AB944B0074E83F /* SKPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPopupViewController.m; sourceTree = "<group>"; };
+		F44D0FCA16AB95F00074E83F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F4826E0F16BCA44300DAEDE8 /* libSmashKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSmashKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4CCF25C16ABC31C0042D8D2 /* SKTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTutorialViewController.h; sourceTree = "<group>"; };
+		F4CCF25D16ABC31C0042D8D2 /* SKTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTutorialViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		F44D0F1F16AA40730074E83F /* Frameworks */ = {
+		F4826E0C16BCA44300DAEDE8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F44D0F2716AA40730074E83F /* UIKit.framework in Frameworks */,
-				F44D0F2916AA40730074E83F /* Foundation.framework in Frameworks */,
-				F44D0F2B16AA40730074E83F /* CoreGraphics.framework in Frameworks */,
+				F4826E1016BCA44300DAEDE8 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +81,7 @@
 		F44D0F2316AA40730074E83F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F44D0F2216AA40730074E83F /* SmashKit.app */,
+				F4826E0F16BCA44300DAEDE8 /* libSmashKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,6 +89,7 @@
 		F44D0F2516AA40730074E83F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F44D0FCA16AB95F00074E83F /* QuartzCore.framework */,
 				F44D0F2616AA40730074E83F /* UIKit.framework */,
 				F44D0F2816AA40730074E83F /* Foundation.framework */,
 				F44D0F2A16AA40730074E83F /* CoreGraphics.framework */,
@@ -78,6 +100,10 @@
 		F44D0F2C16AA40730074E83F /* SmashKit */ = {
 			isa = PBXGroup;
 			children = (
+				F44D0F4316AA40B50074E83F /* Layout */,
+				F44D0F4916AA40B50074E83F /* LayoutViews */,
+				F44D0FC216AA75C80074E83F /* Utilities */,
+				F44D0FBC16AA71A40074E83F /* View */,
 				F44D0F3516AA40730074E83F /* TestAppDelegate.h */,
 				F44D0F3616AA40730074E83F /* TestAppDelegate.m */,
 				F44D0F2D16AA40730074E83F /* Supporting Files */,
@@ -99,16 +125,62 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F44D0F4316AA40B50074E83F /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				F44D0F4516AA40B50074E83F /* SKLineup.h */,
+				F44D0F4616AA40B50074E83F /* SKLineup.m */,
+				F44D0F4716AA40B50074E83F /* SKLayoutViewController.h */,
+				F44D0F4816AA40B50074E83F /* SKLayoutViewController.m */,
+				F44D0FC716AB944B0074E83F /* SKPopupViewController.h */,
+				F44D0FC816AB944B0074E83F /* SKPopupViewController.m */,
+				F4CCF25C16ABC31C0042D8D2 /* SKTutorialViewController.h */,
+				F4CCF25D16ABC31C0042D8D2 /* SKTutorialViewController.m */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		F44D0F4916AA40B50074E83F /* LayoutViews */ = {
+			isa = PBXGroup;
+			children = (
+				F44D0F5416AA40B50074E83F /* SKItemButtonViewController.h */,
+				F44D0F5516AA40B50074E83F /* SKItemButtonViewController.m */,
+				F44D0F5C16AA40B50074E83F /* SKItemLabelViewController.h */,
+				F44D0F5D16AA40B50074E83F /* SKItemLabelViewController.m */,
+				F449148D16B4CF8D0095065D /* SKItemPagingScrollViewController.h */,
+				F449148E16B4CF8D0095065D /* SKItemPagingScrollViewController.m */,
+			);
+			path = LayoutViews;
+			sourceTree = "<group>";
+		};
+		F44D0FBC16AA71A40074E83F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F44D0FBD16AA71A40074E83F /* SKGradientButton.h */,
+				F44D0FBE16AA71A40074E83F /* SKGradientButton.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F44D0FC216AA75C80074E83F /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F44D0FC316AA75C80074E83F /* SKGraphicsUtilities.h */,
+				F44D0FC416AA75C80074E83F /* SKGraphicsUtilities.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F44D0F2116AA40730074E83F /* SmashKit */ = {
+		F4826E0E16BCA44300DAEDE8 /* SmashKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F44D0F4016AA40730074E83F /* Build configuration list for PBXNativeTarget "SmashKit" */;
+			buildConfigurationList = F4826E1816BCA44400DAEDE8 /* Build configuration list for PBXNativeTarget "SmashKit" */;
 			buildPhases = (
-				F44D0F1E16AA40730074E83F /* Sources */,
-				F44D0F1F16AA40730074E83F /* Frameworks */,
-				F44D0F2016AA40730074E83F /* Resources */,
+				F4826E0B16BCA44300DAEDE8 /* Sources */,
+				F4826E0C16BCA44300DAEDE8 /* Frameworks */,
+				F4826E0D16BCA44300DAEDE8 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -116,8 +188,8 @@
 			);
 			name = SmashKit;
 			productName = SmashKit;
-			productReference = F44D0F2216AA40730074E83F /* SmashKit.app */;
-			productType = "com.apple.product-type.application";
+			productReference = F4826E0F16BCA44300DAEDE8 /* libSmashKit.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -141,32 +213,16 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F44D0F2116AA40730074E83F /* SmashKit */,
+				F4826E0E16BCA44300DAEDE8 /* SmashKit */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		F44D0F2016AA40730074E83F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F44D0F3116AA40730074E83F /* InfoPlist.strings in Resources */,
-				F44D0F3916AA40730074E83F /* Default.png in Resources */,
-				F44D0F3B16AA40730074E83F /* Default@2x.png in Resources */,
-				F44D0F3D16AA40730074E83F /* Default-568h@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		F44D0F1E16AA40730074E83F /* Sources */ = {
+		F4826E0B16BCA44300DAEDE8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F44D0F3316AA40730074E83F /* main.m in Sources */,
-				F44D0F3716AA40730074E83F /* TestAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,25 +292,35 @@
 			};
 			name = Release;
 		};
-		F44D0F4116AA40730074E83F /* Debug */ = {
+		F4826E1916BCA44400DAEDE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				DSTROOT = /tmp/SmashKit.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmashKit/SmashKit-Prefix.pch";
-				INFOPLIST_FILE = "SmashKit/SmashKit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
-		F44D0F4216AA40730074E83F /* Release */ = {
+		F4826E1A16BCA44400DAEDE8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				DSTROOT = /tmp/SmashKit.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmashKit/SmashKit-Prefix.pch";
-				INFOPLIST_FILE = "SmashKit/SmashKit-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -270,13 +336,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F44D0F4016AA40730074E83F /* Build configuration list for PBXNativeTarget "SmashKit" */ = {
+		F4826E1816BCA44400DAEDE8 /* Build configuration list for PBXNativeTarget "SmashKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F44D0F4116AA40730074E83F /* Debug */,
-				F44D0F4216AA40730074E83F /* Release */,
+				F4826E1916BCA44400DAEDE8 /* Debug */,
+				F4826E1A16BCA44400DAEDE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
