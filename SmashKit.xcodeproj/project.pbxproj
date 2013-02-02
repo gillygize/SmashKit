@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4021DB216BD2308007871E1 /* SKItemNegativeSpaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4021DB116BD2308007871E1 /* SKItemNegativeSpaceViewController.m */; };
 		F4826E1016BCA44300DAEDE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44D0F2816AA40730074E83F /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,20 +24,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F4021DB016BD2308007871E1 /* SKItemNegativeSpaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKItemNegativeSpaceViewController.h; sourceTree = "<group>"; };
+		F4021DB116BD2308007871E1 /* SKItemNegativeSpaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKItemNegativeSpaceViewController.m; sourceTree = "<group>"; };
 		F449148D16B4CF8D0095065D /* SKItemPagingScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKItemPagingScrollViewController.h; sourceTree = "<group>"; };
 		F449148E16B4CF8D0095065D /* SKItemPagingScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKItemPagingScrollViewController.m; sourceTree = "<group>"; };
 		F44D0F2616AA40730074E83F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F44D0F2816AA40730074E83F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F44D0F2A16AA40730074E83F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F44D0F2E16AA40730074E83F /* SmashKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SmashKit-Info.plist"; sourceTree = "<group>"; };
-		F44D0F3016AA40730074E83F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F44D0F3216AA40730074E83F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F44D0F3416AA40730074E83F /* SmashKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmashKit-Prefix.pch"; sourceTree = "<group>"; };
-		F44D0F3516AA40730074E83F /* TestAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestAppDelegate.h; sourceTree = "<group>"; };
-		F44D0F3616AA40730074E83F /* TestAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestAppDelegate.m; sourceTree = "<group>"; };
-		F44D0F3816AA40730074E83F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		F44D0F3A16AA40730074E83F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		F44D0F3C16AA40730074E83F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F44D0F4516AA40B50074E83F /* SKLineup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLineup.h; sourceTree = "<group>"; };
 		F44D0F4616AA40B50074E83F /* SKLineup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLineup.m; sourceTree = "<group>"; };
 		F44D0F4716AA40B50074E83F /* SKLayoutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLayoutViewController.h; sourceTree = "<group>"; };
@@ -104,25 +98,8 @@
 				F44D0F4916AA40B50074E83F /* LayoutViews */,
 				F44D0FC216AA75C80074E83F /* Utilities */,
 				F44D0FBC16AA71A40074E83F /* View */,
-				F44D0F3516AA40730074E83F /* TestAppDelegate.h */,
-				F44D0F3616AA40730074E83F /* TestAppDelegate.m */,
-				F44D0F2D16AA40730074E83F /* Supporting Files */,
 			);
 			path = SmashKit;
-			sourceTree = "<group>";
-		};
-		F44D0F2D16AA40730074E83F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F44D0F2E16AA40730074E83F /* SmashKit-Info.plist */,
-				F44D0F2F16AA40730074E83F /* InfoPlist.strings */,
-				F44D0F3216AA40730074E83F /* main.m */,
-				F44D0F3416AA40730074E83F /* SmashKit-Prefix.pch */,
-				F44D0F3816AA40730074E83F /* Default.png */,
-				F44D0F3A16AA40730074E83F /* Default@2x.png */,
-				F44D0F3C16AA40730074E83F /* Default-568h@2x.png */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		F44D0F4316AA40B50074E83F /* Layout */ = {
@@ -149,6 +126,8 @@
 				F44D0F5D16AA40B50074E83F /* SKItemLabelViewController.m */,
 				F449148D16B4CF8D0095065D /* SKItemPagingScrollViewController.h */,
 				F449148E16B4CF8D0095065D /* SKItemPagingScrollViewController.m */,
+				F4021DB016BD2308007871E1 /* SKItemNegativeSpaceViewController.h */,
+				F4021DB116BD2308007871E1 /* SKItemNegativeSpaceViewController.m */,
 			);
 			path = LayoutViews;
 			sourceTree = "<group>";
@@ -223,21 +202,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4021DB216BD2308007871E1 /* SKItemNegativeSpaceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		F44D0F2F16AA40730074E83F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F44D0F3016AA40730074E83F /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F44D0F3E16AA40730074E83F /* Debug */ = {
