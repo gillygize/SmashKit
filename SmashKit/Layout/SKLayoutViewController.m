@@ -114,20 +114,32 @@ NSString * const SKItemWidthKey = @"SKItemWidthKey";
 }
 
 - (void)showLineupWithName:(NSString*)sceneName {
-  SKLineup *scene = [self.lineupDict objectForKey:sceneName];
-  [scene prepareToShow];
-  [self.view addSubview:scene.tableView];
+  SKLineup *lineup = [self.lineupDict objectForKey:sceneName];
+
+  [self lineupWillShow:lineup];
+
+  [lineup prepareToShow];
+  [self.view addSubview:lineup.tableView];
+
+  [self lineupDidShow:lineup];
 }
 
 - (void)hideLineupWithName:(NSString *)sceneName {
-  SKLineup *scene = [self.lineupDict objectForKey:sceneName];
-  UITableView *tableView = scene.tableView;
+  SKLineup *lineup = [self.lineupDict objectForKey:sceneName];
+  UITableView *tableView = lineup.tableView;
 
-  [scene prepareToHide];
+  [self lineupWillHide:lineup];
+
+  [lineup prepareToHide];
   
   [self.recycledTableViews addObject:tableView];
   [self.usedTableViews removeObject:tableView];
+
+  [self lineupDidHide:lineup];
 }
+
+- (void)lineupWillShow:(SKLineup*)lineup {}
+- (void)lineupDidShow:(SKLineup*)lineup{}
 
 - (SKLineup *)lineupWithName:(NSString *)name {
   return [self.lineupDict objectForKey:name];

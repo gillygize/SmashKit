@@ -46,5 +46,9 @@ NSString * const SKItemWidthKey;
 - (void)hideLineupWithName:(NSString*)lineupName;
 - (SKLineup *)lineupWithName:(NSString*)name;
 
+- (void)lineupWillShow:(SKLineup*)lineup;
+- (void)lineupDidShow:(SKLineup*)lineup;
+- (void)lineupWillHide:(SKLineup*)lineup;
+- (void)lineupDidHide:(SKLineup*)lineup;
 @end
 
