@@ -15,10 +15,14 @@ NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
 @implementation SKItemLabelViewController
 
 + (NSSet*)requiredConfigurationKeys {
-  return [NSSet setWithArray:@[SKItemLabelTextKey, SKItemLabelFontKey]];
+  return [NSSet setWithArray:@[SKItemLabelTextKey]];
 }
 
 + (void)setConfiguration:(NSMutableDictionary *)configuration withObject:(id)object {
+  if (!configuration[SKItemLabelFontKey]) {
+    configuration[SKItemLabelFontKey] = [UIFont systemFontWithSize:13.0f];
+  }
+  
   if (!configuration[SKItemLabelTextColorKey]) {
     configuration[SKItemLabelTextColorKey] = [UIColor blackColor];
   }
@@ -45,10 +49,14 @@ NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
 
 - (void)loadWithConfiguration:(NSMutableDictionary *)configuration {
   self.label.frame = CGRectMake(
-    0.0f,
-    0.0f,
-    [configuration[SKItemWidthKey] floatValue],
-    [configuration[SKItemHeightKey] floatValue]
+    [configuration[SKItemLeftHorizontalMarginKey] floatValue],
+    [configuration[SKItemTopVerticalMarginKey] floatValue],
+    [configuration[SKItemWidthKey] floatValue] -
+      [configuration[SKItemLeftHorizontalMarginKey] floatValue] -
+      [configuration[SKItemRightHorizontalMarginKey] floatValue],
+    [configuration[SKItemHeightKey] floatValue] -
+      [configuration[SKItemTopVerticalMarginKey] floatValue] -
+      [configuration[SKItemBottomVerticalMarginKey] floatValue]
   );
   self.label.font = configuration[SKItemLabelFontKey];
   self.label.text = configuration[SKItemLabelTextKey];

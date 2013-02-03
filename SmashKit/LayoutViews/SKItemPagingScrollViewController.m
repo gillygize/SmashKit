@@ -44,10 +44,14 @@ NSString * const SKItemPagingScrollViewArray = @"SKItemPagingScrollViewArray";
   }
 
   self.scrollView.frame = CGRectMake(
-    0.0f,
-    0.0f,
-    [configuration[SKItemWidthKey] floatValue],
-    [configuration[SKItemHeightKey] floatValue]
+    [configuration[SKItemLeftHorizontalMarginKey] floatValue],
+    [configuration[SKItemTopVerticalMarginKey] floatValue],
+    [configuration[SKItemWidthKey] floatValue] -
+      [configuration[SKItemLeftHorizontalMarginKey] floatValue] -
+      [configuration[SKItemRightHorizontalMarginKey] floatValue],
+    [configuration[SKItemHeightKey] floatValue] -
+      [configuration[SKItemTopVerticalMarginKey] floatValue] -
+      [configuration[SKItemBottomVerticalMarginKey] floatValue]
   );
   self.scrollView.pagingEnabled = YES;
   self.scrollView.backgroundColor = [UIColor clearColor];

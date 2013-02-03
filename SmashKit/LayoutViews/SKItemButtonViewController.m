@@ -42,10 +42,14 @@ NSString * const SKItemButtonTopBottomColorKey = @"SKItemButtonTopBottomColorKey
 
 - (void)loadWithConfiguration:(NSMutableDictionary *)configuration {
   self.button.frame = CGRectMake(
-    0.0f,
-    0.0f,
-    [configuration[SKItemWidthKey] floatValue],
-    [configuration[SKItemHeightKey] floatValue]
+    [configuration[SKItemLeftHorizontalMarginKey] floatValue],
+    [configuration[SKItemTopVerticalMarginKey] floatValue],
+    [configuration[SKItemWidthKey] floatValue] -
+      [configuration[SKItemLeftHorizontalMarginKey] floatValue] -
+      [configuration[SKItemRightHorizontalMarginKey] floatValue],
+    [configuration[SKItemHeightKey] floatValue] -
+      [configuration[SKItemTopVerticalMarginKey] floatValue] -
+      [configuration[SKItemBottomVerticalMarginKey] floatValue]
   );
   [self.button setTitle:configuration[SKItemButtonTitleKey] forState:UIControlStateNormal];
   [self.button setImage:configuration[SKItemButtonImageKey] forState:UIControlStateNormal];

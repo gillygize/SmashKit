@@ -17,6 +17,10 @@
 
 NSString * const SKItemHeightKey;
 NSString * const SKItemWidthKey;
+NSString * const SKItemLeftHorizontalMarginKey;
+NSString * const SKItemRightHorizontalMarginKey;
+NSString * const SKItemTopVericalMarginKey;
+NSString * const SKItemBottomVerticalMarginKey;
 
 @interface SKItemViewController : UIViewController
 

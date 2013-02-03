@@ -11,6 +11,10 @@
 
 NSString * const SKItemHeightKey = @"SKItemHeightKey";
 NSString * const SKItemWidthKey = @"SKItemWidthKey";
+NSString * const SKItemLeftHorizontalMarginKey = @"SKItemLeftHorizontalMarginKey";
+NSString * const SKItemRightHorizontalMarginKey = @"SKItemRightHorizontalMarginKey";
+NSString * const SKItemTopVericalMarginKey = @"SKItemTopVericalMarginKey";
+NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey";
 
 @implementation SKItemViewController : UIViewController
 
@@ -50,6 +54,22 @@ NSString * const SKItemWidthKey = @"SKItemWidthKey";
     return ![allKeysSet containsObject:obj];
   }];
   NSAssert(absentKeys.count == 0, @"Required keys: %@ are not found", absentKeys);
+
+  if (!configuration[SKItemLeftHorizontalMarginKey]) {
+    configuration[SKItemLeftHorizontalMarginKey] = @(0.0f);
+  }
+
+  if (!configuration[SKItemRightHorizontalMarginKey]) {
+    configuration[SKItemLeftHorizontalMarginKey] = @(0.0f);
+  }
+
+  if (!configuration[SKItemTopVericalMarginKey]) {
+    configuration[SKItemTopVericalMarginKey] = @(0.0f);
+  }
+  
+  if (!configuration[SKItemBottomVerticalMarginKey]) {
+    configuration[SKItemBottomVerticalMarginKey] = @(0.0f);
+  }
 }
 
 + (void)setHeightWithConfiguration:(NSMutableDictionary*)configuration width:(CGFloat)width {
@@ -139,7 +159,9 @@ NSString * const SKItemWidthKey = @"SKItemWidthKey";
 }
 
 - (void)lineupWillShow:(SKLineup*)lineup {}
-- (void)lineupDidShow:(SKLineup*)lineup{}
+- (void)lineupDidShow:(SKLineup*)lineup {}
+- (void)lineupWillHide:(SKLineup*)lineup {}
+- (void)lineupDidHide:(SKLineup *)lineup {}
 
 - (SKLineup *)lineupWithName:(NSString *)name {
   return [self.lineupDict objectForKey:name];
