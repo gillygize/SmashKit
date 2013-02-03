@@ -38,6 +38,8 @@ NSString * const SKItemWidthKey;
 @interface SKLayoutViewController : UITableViewController <SKLineupDelegate>
 
 @property (strong, nonatomic, readwrite) NSMutableDictionary *lineupDict;
+@property (strong, nonatomic) NSMutableSet *usedTableViews;
+@property (strong, nonatomic) NSMutableSet *recycledTableViews;
 
 - (void)setLineups:(NSArray*)lineups;
 - (void)showLineupWithName:(NSString*)lineupName;

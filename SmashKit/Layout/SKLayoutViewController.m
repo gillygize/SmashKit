@@ -67,13 +67,6 @@ NSString * const SKItemWidthKey = @"SKItemWidthKey";
 
 @end
 
-@interface SKLayoutViewController ()
-
-@property (strong, nonatomic) NSMutableSet *usedTableViews;
-@property (strong, nonatomic) NSMutableSet *recycledTableViews;
-
-@end
-
 @implementation SKLayoutViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
