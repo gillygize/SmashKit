@@ -14,7 +14,7 @@
 
 @protocol SKLineupDelegate <NSObject>
 
-- (UITableView*)tableViewForScene:(SKLineup *)scene;
+- (UITableView*)tableViewForLineup:(SKLineup *)lineup;
 
 @end
 

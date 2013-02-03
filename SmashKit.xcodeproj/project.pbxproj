@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19FA58B9EA7B4D2CBF6A0133 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 238939BB82344291975BFCD4 /* libPods.a */; settings = {}; };
 		F4021DB216BD2308007871E1 /* SKItemNegativeSpaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4021DB116BD2308007871E1 /* SKItemNegativeSpaceViewController.m */; };
 		F4826E1016BCA44300DAEDE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44D0F2816AA40730074E83F /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		238939BB82344291975BFCD4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPods.a; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D061844993054300B50D4508 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		F4021DB016BD2308007871E1 /* SKItemNegativeSpaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKItemNegativeSpaceViewController.h; sourceTree = "<group>"; };
 		F4021DB116BD2308007871E1 /* SKItemNegativeSpaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKItemNegativeSpaceViewController.m; sourceTree = "<group>"; };
 		F449148D16B4CF8D0095065D /* SKItemPagingScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKItemPagingScrollViewController.h; sourceTree = "<group>"; };
@@ -57,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4826E1016BCA44300DAEDE8 /* Foundation.framework in Frameworks */,
+				19FA58B9EA7B4D2CBF6A0133 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +73,7 @@
 				F44D0F2C16AA40730074E83F /* SmashKit */,
 				F44D0F2516AA40730074E83F /* Frameworks */,
 				F44D0F2316AA40730074E83F /* Products */,
+				D061844993054300B50D4508 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,6 +92,7 @@
 				F44D0F2616AA40730074E83F /* UIKit.framework */,
 				F44D0F2816AA40730074E83F /* Foundation.framework */,
 				F44D0F2A16AA40730074E83F /* CoreGraphics.framework */,
+				238939BB82344291975BFCD4 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -160,6 +166,7 @@
 				F4826E0B16BCA44300DAEDE8 /* Sources */,
 				F4826E0C16BCA44300DAEDE8 /* Frameworks */,
 				F4826E0D16BCA44300DAEDE8 /* CopyFiles */,
+				CEF9B90632DF46EBABF17A62 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -190,12 +197,32 @@
 			mainGroup = F44D0F1716AA40730074E83F;
 			productRefGroup = F44D0F2316AA40730074E83F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+			);
 			projectRoot = "";
 			targets = (
 				F4826E0E16BCA44300DAEDE8 /* SmashKit */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CEF9B90632DF46EBABF17A62 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 1;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F4826E0B16BCA44300DAEDE8 /* Sources */ = {
@@ -263,6 +290,7 @@
 		};
 		F4826E1916BCA44400DAEDE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D061844993054300B50D4508 /* Pods.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
@@ -279,6 +307,7 @@
 		};
 		F4826E1A16BCA44400DAEDE8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D061844993054300B50D4508 /* Pods.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;

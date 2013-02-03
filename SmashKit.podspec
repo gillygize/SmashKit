@@ -10,4 +10,5 @@ Pod::Spec.new do |s|
   s.source_files = 'SmashKit', 'SmashKit/**/*.{h,m}'
   s.requires_arc = true
   s.frameworks   = 'UIKit', 'QuartzCore'
+  s.dependency   'BlocksKit'
 end

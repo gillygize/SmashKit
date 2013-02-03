@@ -141,7 +141,7 @@ NSString * const SKItemWidthKey = @"SKItemWidthKey";
 }
 
 #pragma mark - SKLayoutSceneDelegate
-- (UITableView*)tableViewForScene:(SKLineup *)scene {
+- (UITableView*)tableViewForLineup:(SKLineup *)scene {
   if (scene.tableView) {
     return scene.tableView;
   }
