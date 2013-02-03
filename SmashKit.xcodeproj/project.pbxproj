@@ -7,8 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		19FA58B9EA7B4D2CBF6A0133 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 238939BB82344291975BFCD4 /* libPods.a */; settings = {}; };
+		19FA58B9EA7B4D2CBF6A0133 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 238939BB82344291975BFCD4 /* libPods.a */; };
 		F4021DB216BD2308007871E1 /* SKItemNegativeSpaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4021DB116BD2308007871E1 /* SKItemNegativeSpaceViewController.m */; };
+		F4579A4516BE2B1D00D79E2F /* SKLineup.m in Sources */ = {isa = PBXBuildFile; fileRef = F44D0F4616AA40B50074E83F /* SKLineup.m */; };
+		F4579A4616BE2B2000D79E2F /* SKLayoutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F44D0F4816AA40B50074E83F /* SKLayoutViewController.m */; };
+		F4579A4716BE2B2300D79E2F /* SKPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F44D0FC816AB944B0074E83F /* SKPopupViewController.m */; };
+		F4579A4816BE2B2600D79E2F /* SKTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CCF25D16ABC31C0042D8D2 /* SKTutorialViewController.m */; };
+		F4579A4916BE2B2A00D79E2F /* SKItemButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F44D0F5516AA40B50074E83F /* SKItemButtonViewController.m */; };
+		F4579A4A16BE2B2D00D79E2F /* SKItemLabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F44D0F5D16AA40B50074E83F /* SKItemLabelViewController.m */; };
+		F4579A4B16BE2B3000D79E2F /* SKItemPagingScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F449148E16B4CF8D0095065D /* SKItemPagingScrollViewController.m */; };
+		F4579A4C16BE2B3600D79E2F /* SKGraphicsUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F44D0FC416AA75C80074E83F /* SKGraphicsUtilities.m */; };
 		F4826E1016BCA44300DAEDE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44D0F2816AA40730074E83F /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		238939BB82344291975BFCD4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libPods.a; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		238939BB82344291975BFCD4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D061844993054300B50D4508 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		F4021DB016BD2308007871E1 /* SKItemNegativeSpaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKItemNegativeSpaceViewController.h; sourceTree = "<group>"; };
 		F4021DB116BD2308007871E1 /* SKItemNegativeSpaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKItemNegativeSpaceViewController.m; sourceTree = "<group>"; };
@@ -49,6 +57,7 @@
 		F44D0FC716AB944B0074E83F /* SKPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPopupViewController.h; sourceTree = "<group>"; };
 		F44D0FC816AB944B0074E83F /* SKPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPopupViewController.m; sourceTree = "<group>"; };
 		F44D0FCA16AB95F00074E83F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F4579A4D16BE2B7400D79E2F /* SmashKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SmashKit-Prefix.pch"; sourceTree = "<group>"; };
 		F4826E0F16BCA44300DAEDE8 /* libSmashKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSmashKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CCF25C16ABC31C0042D8D2 /* SKTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTutorialViewController.h; sourceTree = "<group>"; };
 		F4CCF25D16ABC31C0042D8D2 /* SKTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTutorialViewController.m; sourceTree = "<group>"; };
@@ -70,6 +79,7 @@
 		F44D0F1716AA40730074E83F = {
 			isa = PBXGroup;
 			children = (
+				F4579A4D16BE2B7400D79E2F /* SmashKit-Prefix.pch */,
 				F44D0F2C16AA40730074E83F /* SmashKit */,
 				F44D0F2516AA40730074E83F /* Frameworks */,
 				F44D0F2316AA40730074E83F /* Products */,
@@ -197,8 +207,6 @@
 			mainGroup = F44D0F1716AA40730074E83F;
 			productRefGroup = F44D0F2316AA40730074E83F /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-			);
 			projectRoot = "";
 			targets = (
 				F4826E0E16BCA44300DAEDE8 /* SmashKit */,
@@ -220,7 +228,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 1;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -230,6 +237,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4021DB216BD2308007871E1 /* SKItemNegativeSpaceViewController.m in Sources */,
+				F4579A4516BE2B1D00D79E2F /* SKLineup.m in Sources */,
+				F4579A4616BE2B2000D79E2F /* SKLayoutViewController.m in Sources */,
+				F4579A4716BE2B2300D79E2F /* SKPopupViewController.m in Sources */,
+				F4579A4816BE2B2600D79E2F /* SKTutorialViewController.m in Sources */,
+				F4579A4916BE2B2A00D79E2F /* SKItemButtonViewController.m in Sources */,
+				F4579A4A16BE2B2D00D79E2F /* SKItemLabelViewController.m in Sources */,
+				F4579A4B16BE2B3000D79E2F /* SKItemPagingScrollViewController.m in Sources */,
+				F4579A4C16BE2B3600D79E2F /* SKGraphicsUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

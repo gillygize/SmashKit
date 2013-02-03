@@ -20,7 +20,7 @@ NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
 
 + (void)setConfiguration:(NSMutableDictionary *)configuration withObject:(id)object {
   if (!configuration[SKItemLabelFontKey]) {
-    configuration[SKItemLabelFontKey] = [UIFont systemFontWithSize:13.0f];
+    configuration[SKItemLabelFontKey] = [UIFont systemFontOfSize:13.0f];
   }
   
   if (!configuration[SKItemLabelTextColorKey]) {

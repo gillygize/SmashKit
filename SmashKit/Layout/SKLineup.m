@@ -90,7 +90,7 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 }
 
 - (void)prepareToShow {
-  self.tableView = [self.delegate tableViewForLayout:self];
+  self.tableView = [self.delegate tableViewForLineup:self];
   self.tableView.dataSource = self;
   self.tableView.delegate = self;
 }
@@ -188,7 +188,7 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 }
 
 - (SKItemViewController *)viewControllerAtIndex:(NSUInteger)index {
-  UITableView *tableView = [self.delegate tableViewForLayout:self];
+  UITableView *tableView = [self.delegate tableViewForLineup:self];
   
   SKTableLayoutViewCell *cell = (SKTableLayoutViewCell*)[tableView
     cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
