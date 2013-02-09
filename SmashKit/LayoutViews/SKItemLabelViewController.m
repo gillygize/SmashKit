@@ -35,7 +35,8 @@ NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
 
 + (void)setHeightWithConfiguration:(NSMutableDictionary *)configuration width:(CGFloat)width {
   if (configuration[SKItemLabelAttributedTextKey]) {
-    configuration[SKItemHeightKey] = @([configuration[SKItemLabelAttributedTextKey] size].height);
+    NSAttributedString *attributedString = configuration[SKItemLabelAttributedTextKey];
+    configuration[SKItemHeightKey] = @([attributedString size].height);
   } else {
     configuration[SKItemHeightKey] = @([configuration[SKItemLabelTextKey]
       sizeWithFont:configuration[SKItemLabelFontKey]
@@ -64,7 +65,10 @@ NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
   );
   self.label.font = configuration[SKItemLabelFontKey];
   self.label.text = configuration[SKItemLabelTextKey];
-  self.label.attributedText = configuration[SKItemLabelAttributedTextKey];
+  
+  if (configuration[SKItemLabelAttributedTextKey]) {
+    self.label.attributedText = configuration[SKItemLabelAttributedTextKey];
+  }
   self.label.textColor = configuration[SKItemLabelTextColorKey];
   self.label.textAlignment = [configuration[SKItemLabelAlignmentKey] integerValue];
   self.label.numberOfLines = 0;

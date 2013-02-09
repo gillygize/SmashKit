@@ -11,7 +11,7 @@
 #import "SKLayoutViewController.h"
 
 NSString * const SKItemLabelTextKey;
-NSString * const SKItemAttributedTextKey;
+NSString * const SKItemLabelAttributedTextKey;
 NSString * const SKItemLabelFontKey;
 NSString * const SKItemLabelAlignmentKey;
 NSString * const SKItemLabelTextColorKey;
