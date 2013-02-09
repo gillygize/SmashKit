@@ -8,6 +8,7 @@
 #import "SKItemLabelViewController.h"
 
 NSString * const SKItemLabelTextKey = @"SKItemLabelTextKey";
+NSString * const SKItemLabelAttributedTextKey = @"SKItemLabelAttibutedTextKey";
 NSString * const SKItemLabelFontKey = @"SKItemLabelFontKey";
 NSString * const SKItemLabelAlignmentKey = @"SKItemLabelAlignmentKey";
 NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
@@ -15,7 +16,7 @@ NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
 @implementation SKItemLabelViewController
 
 + (NSSet*)requiredConfigurationKeys {
-  return [NSSet setWithArray:@[SKItemLabelTextKey]];
+  return nil;
 }
 
 + (void)setConfiguration:(NSMutableDictionary *)configuration withObject:(id)object {
@@ -33,11 +34,14 @@ NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
 }
 
 + (void)setHeightWithConfiguration:(NSMutableDictionary *)configuration width:(CGFloat)width {
-  configuration[SKItemHeightKey] = [NSNumber
-    numberWithFloat:[configuration[SKItemLabelTextKey]
+  if (configuration[SKItemLabelAttributedTextKey]) {
+    configuration[SKItemHeightKey] = @([configuration[SKItemLabelAttributedTextKey] size].height);
+  } else {
+    configuration[SKItemHeightKey] = @([configuration[SKItemLabelTextKey]
       sizeWithFont:configuration[SKItemLabelFontKey]
       constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
-      lineBreakMode:UILineBreakModeWordWrap].height];
+      lineBreakMode:UILineBreakModeWordWrap].height);
+  }
 }
 
 - (void)loadView {
@@ -60,6 +64,7 @@ NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
   );
   self.label.font = configuration[SKItemLabelFontKey];
   self.label.text = configuration[SKItemLabelTextKey];
+  self.label.attributedText = configuration[SKItemLabelAttributedTextKey];
   self.label.textColor = configuration[SKItemLabelTextColorKey];
   self.label.textAlignment = [configuration[SKItemLabelAlignmentKey] integerValue];
   self.label.numberOfLines = 0;
