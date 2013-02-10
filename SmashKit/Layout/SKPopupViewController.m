@@ -31,17 +31,17 @@
   [viewController addChildViewController:self];
   [self didMoveToParentViewController:viewController];
   
-  self.currentScene.tableView.frame = CGRectMake(
+  self.currentScene.scrollView.frame = CGRectMake(
     0.0f,
     0.0f,
     self.view.bounds.size.width,
     self.currentScene.allObjectsHeight
   );
-  self.currentScene.tableView.center = self.view.center;
-  [[self tableViewContainerView] addSubview:self.currentScene.tableView];
+  self.currentScene.scrollView.center = self.view.center;
+  [[self tableViewContainerView] addSubview:self.currentScene.scrollView];
 
   CAAnimation *bounce = [self showAnimationWithOptions:nil];
-  [[self.currentScene.tableView layer] addAnimation:bounce forKey:@"bounceAnimation"];
+  [[self.currentScene.scrollView layer] addAnimation:bounce forKey:@"bounceAnimation"];
 }
 
 - (void)dismissFromParentViewController {
@@ -56,8 +56,8 @@
 
   CAAnimation *dismiss = [self dismissAnimationWithOptions:nil];
 
-  [[self.currentScene.tableView layer] addAnimation:dismiss forKey:@"dismissAnimation"];
-  self.currentScene.tableView.transform = CGAffineTransformMakeScale(0.0f, 0.0f);
+  [[self.currentScene.scrollView layer] addAnimation:dismiss forKey:@"dismissAnimation"];
+  self.currentScene.scrollView.transform = CGAffineTransformMakeScale(0.0f, 0.0f);
   [CATransaction commit];
 }
 

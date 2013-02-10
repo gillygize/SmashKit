@@ -34,8 +34,8 @@ NSString * const SKItemBottomVerticalMarginKey;
 @interface SKLayoutViewController : UITableViewController <SKLineupDelegate>
 
 @property (strong, nonatomic, readwrite) NSMutableDictionary *lineupDict;
-@property (strong, nonatomic) NSMutableSet *usedTableViews;
-@property (strong, nonatomic) NSMutableSet *recycledTableViews;
+@property (strong, nonatomic) NSMutableSet *usedScrollViews;
+@property (strong, nonatomic) NSMutableSet *recycledScrollViews;
 
 - (void)setLineups:(NSArray*)lineups;
 - (void)showLineupWithName:(NSString*)lineupName;

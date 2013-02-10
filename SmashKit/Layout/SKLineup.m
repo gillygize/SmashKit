@@ -34,36 +34,13 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 
 @end
 
-@interface SKTableLayoutViewCell : UITableViewCell
-
-@property (strong, nonatomic, readonly) SKItemViewController *viewController;
-- (id)initWithLayoutItem:(SKItem *)item width:(CGFloat)width;
-
-@end
-
-@implementation SKTableLayoutViewCell
-
-- (id)initWithLayoutItem:(SKItem *)item width:(CGFloat)width {
-  if (self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass(item.viewControllerClass)]) {
-    _viewController = (SKItemViewController *)[[item.viewControllerClass alloc] initWithNibName:nil bundle:nil];
-    _viewController.view.frame = CGRectMake(
-      0.0f,
-      0.0f,
-      [item.configuration[SKItemWidthKey] floatValue],
-      [item.configuration[SKItemHeightKey] floatValue]
-    );
-        
-    [self.contentView addSubview:_viewController.view];
-  }
-  return self;
-}
-
-@end
-
-@interface SKLineup ()
+@interface SKLineup () <UIScrollViewDelegate>
 
 @property (strong, nonatomic, readwrite) NSString *name;
+@property (strong, nonatomic) NSMutableSet *visibleViewControllers;
+@property (strong, nonatomic) NSMutableDictionary *recycledViewControllers;
 @property (weak, nonatomic, readwrite) SKLayoutViewController *layoutViewController;
+@property CGFloat currentYPosition;
 
 @end
 
@@ -77,19 +54,22 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
     self.layoutViewController = layoutViewController;
     self.items = [[NSMutableArray alloc] init];
     self.delegate = delegate;
+    self.visibleViewControllers = [[NSMutableSet alloc] init];
+    self.recycledViewControllers = [[NSMutableDictionary alloc] init];
+    self.currentYPosition = 0.0f;
+    
+    [self tilePages];
   }
   return self;
 }
 
 - (void)prepareToShow {
-  self.tableView = [self.delegate tableViewForLineup:self];
-  self.tableView.dataSource = self;
-  self.tableView.delegate = self;
+  self.scrollView = [self.delegate scrollViewForLineup:self];
+  self.scrollView.delegate = self;
 }
 
 - (void)prepareToHide {
-  self.tableView.dataSource = nil;
-  self.tableView.delegate = nil;
+  self.scrollView.delegate = nil;
 }
 
 - (void)addObject:(id)object
@@ -180,11 +160,8 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 }
 
 - (SKItemViewController *)viewControllerAtIndex:(NSUInteger)index {
-  UITableView *tableView = [self.delegate tableViewForLineup:self];
-  
-  SKTableLayoutViewCell *cell = (SKTableLayoutViewCell*)[tableView
-    cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-  return cell.viewController;
+  UIScrollView *scrollView = [self.delegate scrollViewForLineup:self];
+  return [self scrollView:scrollView itemViewControllerForIndex:index];
 }
 
 - (CGFloat)allObjectsHeight {
@@ -204,36 +181,107 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
   return [self.items objectAtIndex:index];
 }
 
-#pragma mark - UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)numberOfRowsInScrollView:(UIScrollView *)scrollView {
   return self.items.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {  
-  SKItem *layoutItem = [self.items objectAtIndex:[indexPath row]];
+- (SKItemViewController *)scrollView:(UIScrollView *)scrollView itemViewControllerForIndex:(NSUInteger)index {
+  SKItem *item = [self.items objectAtIndex:index];
   
-  NSString *identifier = NSStringFromClass(layoutItem.viewControllerClass);
+  item.yPosition = self.currentYPosition;
+  item.height = [item.configuration[SKItemHeightKey] floatValue];
   
-  SKTableLayoutViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+  SKItemViewController *viewController = [self
+    dequeueReusableItemViewControllerWithIdentifier:(id<NSCopying>)item.viewControllerClass];
   
-  if (nil == cell) {
-    cell = [[SKTableLayoutViewCell alloc] initWithLayoutItem:layoutItem width:tableView.bounds.size.width];
-    ((SKItemViewController *)cell.viewController).layoutViewController = self.layoutViewController;
+  if (nil == viewController) {
+    viewController = [[SKItemViewController alloc] initWithNibName:nil bundle:nil];
   }
+  
+  viewController.view.frame = CGRectMake(
+    0.0f,
+    item.yPosition,
+    [item.configuration[SKItemWidthKey] floatValue],
+    item.height
+  );
+  viewController.layoutViewController = self.layoutViewController;
+  
+  self.currentYPosition += item.height;
 
-  if (layoutItem.delegate) {
-    cell.viewController.delegate = layoutItem.delegate;
+  if (item.delegate) {
+    viewController.delegate = item.delegate;
   }
-  [cell.viewController loadWithConfiguration:layoutItem.configuration];
+  [viewController loadWithConfiguration:item.configuration];
   
-    
-  return cell;
+  return viewController;
 }
 
-#pragma mark - UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  SKItem *layoutItem = [self.items objectAtIndex:[indexPath row]];
+- (CGFloat)scrollView:(UIScrollView *)scrollView heightForRowAtIndex:(NSUInteger)index {
+  SKItem *layoutItem = [self.items objectAtIndex:index];
   return [layoutItem.configuration[SKItemHeightKey] floatValue];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+  [self tilePages];
+}
+
+- (void)tilePages {
+  CGRect visibleBounds = self.scrollView.bounds;
+  
+  NSInteger firstNeededPageIndex = floorf(CGRectGetMinX(visibleBounds) / CGRectGetWidth(visibleBounds));
+  NSInteger lastNeededPageIndex  = floorf((CGRectGetMaxX(visibleBounds)-1) / CGRectGetWidth(visibleBounds));
+  
+  firstNeededPageIndex = MAX(firstNeededPageIndex, 0);
+  lastNeededPageIndex  = MIN(lastNeededPageIndex, self.items.count - 1);
+    
+  [self.items enumerateObjectsUsingBlock:^(SKItem *item, NSUInteger idx, BOOL *stop) {
+    if (item.viewController && (idx < firstNeededPageIndex || idx > lastNeededPageIndex)) {
+      NSMutableSet *recycledSetForClass = self.recycledViewControllers[(id<NSCopying>)item.viewControllerClass];
+      
+      if (!recycledSetForClass) {
+        recycledSetForClass = [[NSMutableSet alloc] init];
+      }
+      
+      [recycledSetForClass addObject:item.viewController];
+      self.recycledViewControllers[(id<NSCopying>)item.viewControllerClass] = recycledSetForClass;
+      [self.visibleViewControllers removeObject:item.viewController];
+      [item.viewController.view removeFromSuperview];
+      item.viewController = nil;
+    }
+  }];
+  
+  for (int index = firstNeededPageIndex; index <= lastNeededPageIndex; index++) {
+    if (![self isDisplayingViewForIndex:index]) {
+      SKItemViewController *viewController = [self scrollView:self.scrollView itemViewControllerForIndex:index];
+
+      [self.scrollView addSubview:viewController.view];
+      [self.visibleViewControllers addObject:viewController];
+    }
+  }
+}
+
+- (BOOL)isDisplayingViewForIndex:(NSUInteger)index {
+  BOOL __block foundView = NO;
+  
+  [self.visibleViewControllers enumerateObjectsUsingBlock:^(UIViewController* viewController, BOOL *stop) {
+    NSUInteger viewIndex = viewController.view.tag - 1;
+
+    if (viewIndex == index) {
+      *stop = foundView = YES;
+    }
+  }];
+  
+  return foundView;
+}
+
+- (SKItemViewController*)dequeueReusableItemViewControllerWithIdentifier:(id<NSCopying>)identifier {
+  NSSet *recycledViewControllerSet = self.recycledViewControllers[identifier];
+  
+  if (!recycledViewControllerSet) {
+    return nil;
+  }
+  
+  return [recycledViewControllerSet anyObject];
 }
 
 @end

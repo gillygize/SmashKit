@@ -6,7 +6,7 @@
 
 @protocol SKLineupDelegate <NSObject>
 
-- (UITableView*)tableViewForLineup:(SKLineup *)lineup;
+- (UIScrollView*)scrollViewForLineup:(SKLineup *)lineup;
 
 @end
 
@@ -17,7 +17,10 @@ NSString * const SKLayoutSceneDefaultName;
 @property (strong, nonatomic) id object;
 @property (strong, nonatomic) NSMutableDictionary *configuration;
 @property (strong) Class viewControllerClass;
+@property (weak, nonatomic) SKItemViewController *viewController;
 @property (weak, nonatomic) id delegate;
+@property CGFloat yPosition;
+@property CGFloat height;
 
 - (id)initWithObject:(id)object
  configuration:(NSMutableDictionary*)configuration
@@ -32,13 +35,13 @@ NSString * const SKLayoutSceneDefaultName;
 
 @end
 
-@interface SKLineup : NSObject <UITableViewDataSource, UITableViewDelegate>
+@interface SKLineup : NSObject
 
 @property (strong, nonatomic) NSMutableArray *items;
 @property (strong, nonatomic, readonly) NSString *name;
 @property (weak, nonatomic, readonly) SKLayoutViewController *layoutViewController;
 @property (weak, nonatomic) id<SKLineupDelegate> delegate;
-@property (weak, nonatomic) UITableView *tableView;
+@property (weak, nonatomic) UIScrollView *scrollView;
 
 - (id)initWithName:(NSString*)name
  layoutViewController:(SKLayoutViewController*)layoutViewController

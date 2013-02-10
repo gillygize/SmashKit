@@ -22,7 +22,7 @@ NSString const * SKTutorialViewControllerGoLeftKey = @"SKTutorialViewControllerG
 }
 
 - (void)transitionToLineup:(SKLineup *)line animated:(BOOL)animated userInfo:(NSDictionary*)userInfo {
-  UITableView *oldTableView = self.currentScene.tableView;
+  UIScrollView *oldScrollView = self.currentScene.scrollView;
 
   void (^completionBlock)() = ^{
     [self didTransitionToLineup:line];
@@ -32,20 +32,20 @@ NSString const * SKTutorialViewControllerGoLeftKey = @"SKTutorialViewControllerG
     [CATransaction begin];
   }
 
-  [oldTableView removeFromSuperview];
+  [oldScrollView removeFromSuperview];
   [self showLineupWithName:line.name];
-  self.currentScene.tableView.frame = CGRectMake(
+  self.currentScene.scrollView.frame = CGRectMake(
     0.0f,
     0.0f,
     self.view.bounds.size.width,
     self.currentScene.allObjectsHeight
   );
-  self.currentScene.tableView.center = self.view.center;
-  [self.clearView addSubview:self.currentScene.tableView];
+  self.currentScene.scrollView.center = self.view.center;
+  [self.clearView addSubview:self.currentScene.scrollView];
   
   NSAssert(line == self.currentScene, @"After setting a new scene, scene != self.currentScene");
   
-  [self.clearView addSubview:self.currentScene.tableView];
+  [self.clearView addSubview:self.currentScene.scrollView];
 
   if (animated) {
     [CATransaction setCompletionBlock:completionBlock];

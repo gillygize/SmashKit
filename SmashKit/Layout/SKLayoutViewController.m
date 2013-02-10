@@ -84,8 +84,8 @@ NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
     self.lineupDict = [[NSMutableDictionary alloc] initWithCapacity:8];
-    self.recycledTableViews = [[NSMutableSet alloc] initWithCapacity:2];
-    self.usedTableViews = [[NSMutableSet alloc] initWithCapacity:2];
+    self.recycledScrollViews = [[NSMutableSet alloc] initWithCapacity:2];
+    self.usedScrollViews = [[NSMutableSet alloc] initWithCapacity:2];
     
     SKLineup *defaultScene = [[SKLineup alloc]
       initWithName:SKLayoutSceneDefaultName
@@ -131,21 +131,21 @@ NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey
   [self lineupWillShow:lineup];
 
   [lineup prepareToShow];
-  [self.view addSubview:lineup.tableView];
+  [self.view addSubview:lineup.scrollView];
 
   [self lineupDidShow:lineup];
 }
 
 - (void)hideLineupWithName:(NSString *)sceneName {
   SKLineup *lineup = [self.lineupDict objectForKey:sceneName];
-  UITableView *tableView = lineup.tableView;
+  UIScrollView *tableView = lineup.scrollView;
 
   [self lineupWillHide:lineup];
 
   [lineup prepareToHide];
   
-  [self.recycledTableViews addObject:tableView];
-  [self.usedTableViews removeObject:tableView];
+  [self.recycledScrollViews addObject:tableView];
+  [self.usedScrollViews removeObject:tableView];
 
   [self lineupDidHide:lineup];
 }
@@ -160,26 +160,24 @@ NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey
 }
 
 #pragma mark - SKLayoutSceneDelegate
-- (UITableView*)tableViewForLineup:(SKLineup *)scene {
-  if (scene.tableView) {
-    return scene.tableView;
+- (UIScrollView*)scrollViewForLineup:(SKLineup *)scene {
+  if (scene.scrollView) {
+    return scene.scrollView;
   }
 
-  UITableView *tableView = [self.recycledTableViews anyObject];
+  UIScrollView *scrollView = [self.recycledScrollViews anyObject];
   
-  if (tableView == nil) {
-    tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    tableView.allowsSelection = NO;
+  if (scrollView == nil) {
+    scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
-    [self.usedTableViews addObject:tableView];
+    [self.usedScrollViews addObject:scrollView];
   } else {
-    [self.usedTableViews addObject:tableView];
-    [self.recycledTableViews removeObject:tableView];
+    [self.usedScrollViews addObject:scrollView];
+    [self.recycledScrollViews removeObject:scrollView];
   }
   
-  return tableView;
+  return scrollView;
 }
 
 @end
