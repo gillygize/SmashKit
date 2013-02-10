@@ -1,10 +1,3 @@
-//
-//  SKItemLabelViewController.h
-//  Tamecco
-//
-//  Created by Matt on 10/26/12.
-
-
 #import "SKItemLabelViewController.h"
 
 NSString * const SKItemLabelTextKey = @"SKItemLabelTextKey";

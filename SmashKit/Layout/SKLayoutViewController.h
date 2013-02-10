@@ -1,11 +1,3 @@
-//
-//  SKLayoutViewController.h
-//  
-//
-//  Created by Matt on 10/19/12.
-//
-//
-
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "SKLineup.h"

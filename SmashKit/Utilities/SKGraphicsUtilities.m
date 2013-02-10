@@ -1,11 +1,3 @@
-//
-//  SKGraphicsUtilties.h
-//  Tamecco
-//
-//  Created by Matt on 12/10/12.
-//  Copyright (c) 2012 Tamecco. All rights reserved.
-//
-
 #import "SKGraphicsUtilities.h"
 
 void drawLinearGradient(CGContextRef context, CGRect rect, UIColor *startColor, UIColor *endColor) {

@@ -1,11 +1,3 @@
-//
-//  SKItemPagingScrollViewController.h
-//  SmashKit
-//
-//  Created by Matt on 1/27/13.
-//  Copyright (c) 2013 Matthew Gillingham. All rights reserved.
-//
-
 #import "SKLayoutViewController.h"
 
 @protocol SKItemPagingScrollViewControllerDelegate <SKItemViewController>

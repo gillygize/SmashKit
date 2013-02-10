@@ -1,11 +1,3 @@
-//
-//  SKGradientButton.h
-//  Tamecco
-//
-//  Created by Matt on 12/12/12.
-//  Copyright (c) 2012 Tamecco. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 @interface SKGradientButton : UIButton

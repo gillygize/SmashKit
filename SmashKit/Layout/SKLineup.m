@@ -1,11 +1,3 @@
-//
-//  SKLineup.m
-//  Tamecco
-//
-//  Created by Matt on 1/4/13.
-//  Copyright (c) 2013 Tamecco. All rights reserved.
-//
-
 #import "SKLineup.h"
 #import "SKLayoutViewController.h"
 

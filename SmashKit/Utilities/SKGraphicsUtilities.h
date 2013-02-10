@@ -1,11 +1,3 @@
-//
-//  SKGraphicsUtilties.h
-//  Tamecco
-//
-//  Created by Matt on 12/10/12.
-//  Copyright (c) 2012 Tamecco. All rights reserved.
-//
-
 void drawLinearGradient(CGContextRef context, CGRect rect, UIColor *startColor, UIColor *endColor);
 void drawDimmingEffect(CGContextRef context, CGRect rect);
 void drawOnePixelStroke(CGContextRef context, CGPoint startPoint, CGPoint endPoint, UIColor *color);

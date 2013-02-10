@@ -1,11 +1,3 @@
-//
-//  SKItemButtonViewController.m
-//  Tamecco
-//
-//  Created by Matt on 12/25/12.
-//  Copyright (c) 2012 Tamecco. All rights reserved.
-//
-
 #import "SKItemButtonViewController.h"
 
 NSString * const SKItemButtonImageKey = @"SKItemButtonImageKey";

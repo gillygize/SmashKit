@@ -1,11 +1,3 @@
-//
-//  SKReedemedViewController.m
-//  
-//
-//  Created by Matt on 11/8/12.
-//  Copyright (c) 2012 Tamecco. All rights reserved.
-//
-
 #import <QuartzCore/QuartzCore.h>
 #import "SKPopupViewController.h"
 #import "SKGraphicsUtilities.h"

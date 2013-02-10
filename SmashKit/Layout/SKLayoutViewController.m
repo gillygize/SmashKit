@@ -1,11 +1,3 @@
-//
-//  SKLayoutViewController.m
-//  
-//
-//  Created by Matt on 10/19/12.
-//
-//
-
 #import "SKLayoutViewController.h"
 #import "SKLineup.h"
 

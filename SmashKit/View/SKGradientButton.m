@@ -1,11 +1,3 @@
-//
-//  SKGradientButton.m
-//  Tamecco
-//
-//  Created by Matt on 12/12/12.
-//  Copyright (c) 2012 Tamecco. All rights reserved.
-//
-
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "SKGradientButton.h"

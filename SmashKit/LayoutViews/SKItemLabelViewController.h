@@ -1,12 +1,3 @@
-//
-//  SKLayoutItemBarcodeViewController.h
-//  Tamecco
-//
-//  Created by Matt on 10/26/12.
-//  Copyright (c) 2012 Tamecco. All rights reserved.
-//
-
-
 #import <Foundation/Foundation.h>
 #import "SKLayoutViewController.h"
 
