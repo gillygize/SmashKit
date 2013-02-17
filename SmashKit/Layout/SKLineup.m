@@ -64,10 +64,11 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 
 - (void)prepareToShow {
   if (!self.scrollView) {
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+    self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;   
     [self addSubview:self.scrollView];
   }
-
+  
   self.scrollView.delegate = self;
 
   [self tilePages];
@@ -235,6 +236,11 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
   NSUInteger __block length = self.visibleViewControllerRange.length;
   
   NSRange visibleRange = NSMakeRange(location, length);
+  NSRange beforeVisibleRange = NSMakeRange(0, location);
+  NSRange afterVisibleRange = NSMakeRange(
+    location + length,
+    self.items.count - (location + length)
+  );
   
   [self.items
     enumerateObjectsAtIndexes:[[NSIndexSet alloc] initWithIndexesInRange:visibleRange]
@@ -243,7 +249,7 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
       BOOL rectIsInRange = CGRectIntersectsRect(item.rect, visibleBounds);
   
       if (item.viewController && !rectIsInRange) {
-        if (topPagePosition > CGRectGetMaxY(item.rect)) {
+        if (idx == location && topPagePosition > CGRectGetMaxY(item.rect)) {
           location++;
         }
       
@@ -261,12 +267,6 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
         item.viewController = nil;
       }
     }];
-
-  NSRange beforeVisibleRange = NSMakeRange(0, location);
-  NSRange afterVisibleRange = NSMakeRange(
-    location + length,
-    self.items.count - (location + length)
-  );
   
   [self.items
     enumerateObjectsAtIndexes:[[NSIndexSet alloc] initWithIndexesInRange:beforeVisibleRange]
@@ -286,7 +286,7 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
         [recycledSetForClass removeObject:viewController];
 
         item.viewController = viewController;
-      } else if (item.rect.origin.y > bottomPagePosition) {
+      } else if (topPagePosition > CGRectGetMaxY(item.rect)) {
         *stop = YES;
       }
     }];
@@ -301,13 +301,17 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
         SKItemViewController *viewController = [self scrollView:self.scrollView itemViewControllerForIndex:idx];
         [self.scrollView addSubview:viewController.view];
 
+        if (length == 0) {
+          location = idx;
+        }
+
         length++;
 
         NSMutableSet *recycledSetForClass = self.recycledViewControllers[(id<NSCopying>)item.viewControllerClass];
         [recycledSetForClass removeObject:viewController];
 
         item.viewController = viewController;
-      } else if (topPagePosition > CGRectGetMaxY(item.rect)) {
+      } else if (bottomPagePosition < CGRectGetMinY(item.rect)) {
         *stop = YES;
       }
     }];

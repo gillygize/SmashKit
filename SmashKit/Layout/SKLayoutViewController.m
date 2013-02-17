@@ -99,7 +99,16 @@ NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey
 }
 
 - (void)loadView {
-  self.view = [self lineupWithName:SKLayoutSceneDefaultName];
+  self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+  self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+  self.view.backgroundColor = [UIColor whiteColor];
+  
+  SKLineup *lineup = [self lineupWithName:SKLayoutSceneDefaultName];
+  lineup.frame = self.view.bounds;
+  lineup.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+  [self.view addSubview:lineup];
+  
+  [self showLineupWithName:SKLayoutSceneDefaultName];
 }
 
 - (void)setLineups:(NSArray *)collections {
@@ -118,8 +127,6 @@ NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey
     [self.lineupDict setObject:scene forKey:scene.name];
     scene.delegate = self;
   }];
-
-  [self showLineupWithName:((SKLineup *) collections[0]).name];
 }
 
 - (void)showLineupWithName:(NSString*)sceneName {
