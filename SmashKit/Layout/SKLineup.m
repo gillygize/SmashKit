@@ -37,7 +37,7 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 @interface SKLineup () <UIScrollViewDelegate>
 
 @property (strong, nonatomic, readwrite) NSString *name;
-@property (strong, nonatomic) NSMutableSet *visibleViewControllers;
+@property NSRange visibleViewControllerRange;
 @property (strong, nonatomic) NSMutableDictionary *recycledViewControllers;
 @property (weak, nonatomic, readwrite) SKLayoutViewController *layoutViewController;
 @property CGFloat currentYPosition;
@@ -46,19 +46,18 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 
 @implementation SKLineup
 
-- (id)initWithName:(NSString*)name
+- (id)initWithFrame:(CGRect)frame
+ name:(NSString*)name
  layoutViewController:(SKLayoutViewController*)layoutViewController
  delegate:(id<SKLineupDelegate>)delegate {
-  if (self = [super init]) {
+  if (self = [super initWithFrame:frame]) {
     self.name = name;
     self.layoutViewController = layoutViewController;
     self.items = [[NSMutableArray alloc] init];
     self.delegate = delegate;
-    self.visibleViewControllers = [[NSMutableSet alloc] init];
     self.recycledViewControllers = [[NSMutableDictionary alloc] init];
-    self.currentYPosition = 0.0f;
-    
-    [self tilePages];
+    self.visibleViewControllerRange = NSMakeRange(0, 0);
+    self.currentYPosition = 0.0f;    
   }
   return self;
 }
@@ -66,6 +65,16 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 - (void)prepareToShow {
   self.scrollView = [self.delegate scrollViewForLineup:self];
   self.scrollView.delegate = self;
+  self.scrollView.backgroundColor = [UIColor lightGrayColor];
+
+  [self tilePages];
+
+  SKItem *lastItem = [self.items lastObject];
+  
+  self.scrollView.contentSize = CGSizeMake(
+    lastItem.rect.size.width,
+    lastItem.rect.origin.y + lastItem.rect.size.height
+  );
 }
 
 - (void)prepareToHide {
@@ -76,23 +85,9 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
  configuration:(NSDictionary*)configuration
  width:(CGFloat)width
  viewControllerClass:(Class)viewControllerClass {
-  NSAssert([viewControllerClass isSubclassOfClass:[SKItemViewController class]],
-    @"view controller is not a subclass of SKItemViewController");
- 
-  SKItem *item = [[SKItem alloc]
-    initWithObject:object
-    configuration:[NSMutableDictionary dictionaryWithDictionary:configuration]
-    width:width
-    viewControllerClass:viewControllerClass];
-
-  [viewControllerClass checkObject:item.object];
-  [viewControllerClass setConfiguration:item.configuration withObject:item.object];
-  [viewControllerClass checkConfiguration:item.configuration];
-  [viewControllerClass setHeightWithConfiguration:item.configuration width:width];
-  [viewControllerClass checkHeight:item.configuration];
-
-  [self.items addObject:item];
+  [self addObject:object configuration:configuration width:width viewControllerClass:viewControllerClass delegate:nil];
 }
+
 - (void)addObject:(id)object
  configuration:(NSDictionary*)configuration
  width:(CGFloat)width
@@ -113,6 +108,15 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
   [viewControllerClass checkConfiguration:item.configuration];
   [viewControllerClass setHeightWithConfiguration:item.configuration width:width];
   [viewControllerClass checkHeight:item.configuration];
+
+  item.rect = CGRectMake(
+    0.0f,
+    self.currentYPosition,
+    [item.configuration[SKItemWidthKey] floatValue],
+    [item.configuration[SKItemHeightKey] floatValue]
+  );
+
+  self.currentYPosition += item.rect.size.height;
 
   [self.items addObject:item];
 }
@@ -156,12 +160,13 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
     return 0.0f;
   }
   
-  return [item.configuration[SKItemHeightKey] floatValue];
+  return item.rect.size.height;
 }
 
 - (SKItemViewController *)viewControllerAtIndex:(NSUInteger)index {
-  UIScrollView *scrollView = [self.delegate scrollViewForLineup:self];
-  return [self scrollView:scrollView itemViewControllerForIndex:index];
+  SKItem *item = [self.items objectAtIndex:index];
+  
+  return item.viewController;
 }
 
 - (CGFloat)allObjectsHeight {
@@ -188,98 +193,129 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 - (SKItemViewController *)scrollView:(UIScrollView *)scrollView itemViewControllerForIndex:(NSUInteger)index {
   SKItem *item = [self.items objectAtIndex:index];
   
-  item.yPosition = self.currentYPosition;
-  item.height = [item.configuration[SKItemHeightKey] floatValue];
-  
   SKItemViewController *viewController = [self
     dequeueReusableItemViewControllerWithIdentifier:(id<NSCopying>)item.viewControllerClass];
   
   if (nil == viewController) {
-    viewController = [[SKItemViewController alloc] initWithNibName:nil bundle:nil];
+    viewController = [[item.viewControllerClass alloc] initWithNibName:nil bundle:nil];
   }
-  
-  viewController.view.frame = CGRectMake(
-    0.0f,
-    item.yPosition,
-    [item.configuration[SKItemWidthKey] floatValue],
-    item.height
-  );
+
+  viewController.view.frame = item.rect;
   viewController.layoutViewController = self.layoutViewController;
   
-  self.currentYPosition += item.height;
-
   if (item.delegate) {
     viewController.delegate = item.delegate;
   }
+  
   [viewController loadWithConfiguration:item.configuration];
   
   return viewController;
 }
 
-- (CGFloat)scrollView:(UIScrollView *)scrollView heightForRowAtIndex:(NSUInteger)index {
-  SKItem *layoutItem = [self.items objectAtIndex:index];
-  return [layoutItem.configuration[SKItemHeightKey] floatValue];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
+- (void)layoutSubviews{
   [self tilePages];
 }
 
-- (void)tilePages {
-  CGRect visibleBounds = self.scrollView.bounds;
-  
-  NSInteger firstNeededPageIndex = floorf(CGRectGetMinX(visibleBounds) / CGRectGetWidth(visibleBounds));
-  NSInteger lastNeededPageIndex  = floorf((CGRectGetMaxX(visibleBounds)-1) / CGRectGetWidth(visibleBounds));
-  
-  firstNeededPageIndex = MAX(firstNeededPageIndex, 0);
-  lastNeededPageIndex  = MIN(lastNeededPageIndex, self.items.count - 1);
-    
-  [self.items enumerateObjectsUsingBlock:^(SKItem *item, NSUInteger idx, BOOL *stop) {
-    if (item.viewController && (idx < firstNeededPageIndex || idx > lastNeededPageIndex)) {
-      NSMutableSet *recycledSetForClass = self.recycledViewControllers[(id<NSCopying>)item.viewControllerClass];
-      
-      if (!recycledSetForClass) {
-        recycledSetForClass = [[NSMutableSet alloc] init];
-      }
-      
-      [recycledSetForClass addObject:item.viewController];
-      self.recycledViewControllers[(id<NSCopying>)item.viewControllerClass] = recycledSetForClass;
-      [self.visibleViewControllers removeObject:item.viewController];
-      [item.viewController.view removeFromSuperview];
-      item.viewController = nil;
-    }
-  }];
-  
-  for (int index = firstNeededPageIndex; index <= lastNeededPageIndex; index++) {
-    if (![self isDisplayingViewForIndex:index]) {
-      SKItemViewController *viewController = [self scrollView:self.scrollView itemViewControllerForIndex:index];
-
-      [self.scrollView addSubview:viewController.view];
-      [self.visibleViewControllers addObject:viewController];
-    }
-  }
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+  [self setNeedsLayout];
 }
 
-- (BOOL)isDisplayingViewForIndex:(NSUInteger)index {
-  BOOL __block foundView = NO;
+- (void)tilePages {  
+  CGRect visibleBounds = self.scrollView.bounds;
   
-  [self.visibleViewControllers enumerateObjectsUsingBlock:^(UIViewController* viewController, BOOL *stop) {
-    NSUInteger viewIndex = viewController.view.tag - 1;
+  CGFloat topPagePosition = CGRectGetMinY(visibleBounds);
+  CGFloat bottomPagePosition = CGRectGetMaxY(visibleBounds);
+  
+  NSUInteger __block location = self.visibleViewControllerRange.location;
+  NSUInteger __block length = self.visibleViewControllerRange.length;
+  
+  NSRange visibleRange = NSMakeRange(location, length);
+  
+  [self.items
+    enumerateObjectsAtIndexes:[[NSIndexSet alloc] initWithIndexesInRange:visibleRange]
+    options:0
+    usingBlock:^(SKItem *item, NSUInteger idx, BOOL *stop) {
+      BOOL rectIsInRange = CGRectIntersectsRect(item.rect, visibleBounds);
+  
+      if (item.viewController && !rectIsInRange) {
+        if (topPagePosition > CGRectGetMaxY(item.rect)) {
+          location++;
+        }
+      
+        length--;
+      
+        NSMutableSet *recycledSetForClass = self.recycledViewControllers[(id<NSCopying>)item.viewControllerClass];
+      
+        if (!recycledSetForClass) {
+          recycledSetForClass = [[NSMutableSet alloc] init];
+          self.recycledViewControllers[(id<NSCopying>)item.viewControllerClass] = recycledSetForClass;
+        }
+      
+        [recycledSetForClass addObject:item.viewController];
+        [item.viewController.view removeFromSuperview];
+        item.viewController = nil;
+      }
+    }];
 
-    if (viewIndex == index) {
-      *stop = foundView = YES;
-    }
-  }];
+  NSRange beforeVisibleRange = NSMakeRange(0, location);
+  NSRange afterVisibleRange = NSMakeRange(
+    location + length,
+    self.items.count - (location + length)
+  );
   
-  return foundView;
+  [self.items
+    enumerateObjectsAtIndexes:[[NSIndexSet alloc] initWithIndexesInRange:beforeVisibleRange]
+    options:NSEnumerationReverse
+    usingBlock:^(SKItem *item, NSUInteger idx, BOOL *stop) {
+      BOOL rectIsInRange = CGRectIntersectsRect(item.rect, visibleBounds);
+      
+      if (rectIsInRange) {
+        SKItemViewController *viewController = [self scrollView:self.scrollView itemViewControllerForIndex:idx];
+      
+        [self.scrollView addSubview:viewController.view];
+
+        location = idx;
+        length++;
+
+        NSMutableSet *recycledSetForClass = self.recycledViewControllers[(id<NSCopying>)item.viewControllerClass];
+        [recycledSetForClass removeObject:viewController];
+
+        item.viewController = viewController;
+      } else if (item.rect.origin.y > bottomPagePosition) {
+        *stop = YES;
+      }
+    }];
+
+  [self.items
+    enumerateObjectsAtIndexes:[[NSIndexSet alloc] initWithIndexesInRange:afterVisibleRange]
+    options:0
+    usingBlock:^(SKItem *item, NSUInteger idx, BOOL *stop) {
+      BOOL rectIsInRange = CGRectIntersectsRect(item.rect, visibleBounds);
+      
+      if (rectIsInRange) {
+        SKItemViewController *viewController = [self scrollView:self.scrollView itemViewControllerForIndex:idx];
+        [self.scrollView addSubview:viewController.view];
+
+        length++;
+
+        NSMutableSet *recycledSetForClass = self.recycledViewControllers[(id<NSCopying>)item.viewControllerClass];
+        [recycledSetForClass removeObject:viewController];
+
+        item.viewController = viewController;
+      } else if (topPagePosition > CGRectGetMaxY(item.rect)) {
+        *stop = YES;
+      }
+    }];
+  
+  self.visibleViewControllerRange = NSMakeRange(location, length);
 }
 
 - (SKItemViewController*)dequeueReusableItemViewControllerWithIdentifier:(id<NSCopying>)identifier {
   NSSet *recycledViewControllerSet = self.recycledViewControllers[identifier];
   
-  if (!recycledViewControllerSet) {
+  if (!recycledViewControllerSet || recycledViewControllerSet.count == 0) {
     return nil;
-  }
+  }  
   
   return [recycledViewControllerSet anyObject];
 }

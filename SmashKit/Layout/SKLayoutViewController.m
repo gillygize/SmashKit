@@ -86,9 +86,9 @@ NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey
     self.lineupDict = [[NSMutableDictionary alloc] initWithCapacity:8];
     self.recycledScrollViews = [[NSMutableSet alloc] initWithCapacity:2];
     self.usedScrollViews = [[NSMutableSet alloc] initWithCapacity:2];
-    
     SKLineup *defaultScene = [[SKLineup alloc]
-      initWithName:SKLayoutSceneDefaultName
+      initWithFrame:[[UIScreen mainScreen] applicationFrame]
+      name:SKLayoutSceneDefaultName
       layoutViewController:self
       delegate:self];
     [self setLineups:@[defaultScene]];
@@ -101,8 +101,7 @@ NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey
 }
 
 - (void)loadView {
-  self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-  self.view.backgroundColor = [UIColor whiteColor];    
+  self.view = [self lineupWithName:SKLayoutSceneDefaultName];
 }
 
 - (void)setLineups:(NSArray *)collections {

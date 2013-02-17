@@ -29,7 +29,10 @@ NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
 + (void)setHeightWithConfiguration:(NSMutableDictionary *)configuration width:(CGFloat)width {
   if (configuration[SKItemLabelAttributedTextKey]) {
     NSAttributedString *attributedString = configuration[SKItemLabelAttributedTextKey];
-    configuration[SKItemHeightKey] = @([attributedString size].height);
+    configuration[SKItemHeightKey] = @([attributedString
+      boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+      options:NSStringDrawingUsesLineFragmentOrigin
+      context:nil].size.height);
   } else {
     configuration[SKItemHeightKey] = @([configuration[SKItemLabelTextKey]
       sizeWithFont:configuration[SKItemLabelFontKey]
@@ -58,7 +61,7 @@ NSString * const SKItemLabelTextColorKey = @"SKItemLabelTextColorKey";
   );
   self.label.font = configuration[SKItemLabelFontKey];
   self.label.text = configuration[SKItemLabelTextKey];
-  
+  self.label.backgroundColor = [UIColor clearColor];
   if (configuration[SKItemLabelAttributedTextKey]) {
     self.label.attributedText = configuration[SKItemLabelAttributedTextKey];
   }
