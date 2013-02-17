@@ -6,8 +6,6 @@
 
 @protocol SKLineupDelegate <NSObject>
 
-- (UIScrollView*)scrollViewForLineup:(SKLineup *)lineup;
-
 @end
 
 NSString * const SKLayoutSceneDefaultName;
@@ -40,7 +38,7 @@ NSString * const SKLayoutSceneDefaultName;
 @property (strong, nonatomic, readonly) NSString *name;
 @property (weak, nonatomic, readonly) SKLayoutViewController *layoutViewController;
 @property (weak, nonatomic) id<SKLineupDelegate> delegate;
-@property (weak, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) UIScrollView *scrollView;
 
 - (id)initWithFrame:(CGRect)frame
  name:(NSString*)name

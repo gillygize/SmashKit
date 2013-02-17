@@ -63,9 +63,12 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 }
 
 - (void)prepareToShow {
-  self.scrollView = [self.delegate scrollViewForLineup:self];
+  if (!self.scrollView) {
+    self.scrollView = [[UIScrollView alloc] initWithFrame:self.frame];
+    [self addSubview:self.scrollView];
+  }
+
   self.scrollView.delegate = self;
-  self.scrollView.backgroundColor = [UIColor lightGrayColor];
 
   [self tilePages];
 
@@ -78,7 +81,9 @@ NSString * const SKLayoutSceneDefaultName = @"SKLayoutSceneDefaultName";
 }
 
 - (void)prepareToHide {
-  self.scrollView.delegate = nil;
+  [self.scrollView removeFromSuperview];
+  self.scrollView = nil;
+  self.scrollView.delegate = nil;  
 }
 
 - (void)addObject:(id)object

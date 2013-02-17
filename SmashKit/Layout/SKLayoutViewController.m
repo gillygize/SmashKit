@@ -84,8 +84,6 @@ NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
     self.lineupDict = [[NSMutableDictionary alloc] initWithCapacity:8];
-    self.recycledScrollViews = [[NSMutableSet alloc] initWithCapacity:2];
-    self.usedScrollViews = [[NSMutableSet alloc] initWithCapacity:2];
     SKLineup *defaultScene = [[SKLineup alloc]
       initWithFrame:[[UIScreen mainScreen] applicationFrame]
       name:SKLayoutSceneDefaultName
@@ -130,21 +128,16 @@ NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey
   [self lineupWillShow:lineup];
 
   [lineup prepareToShow];
-  [self.view addSubview:lineup.scrollView];
 
   [self lineupDidShow:lineup];
 }
 
 - (void)hideLineupWithName:(NSString *)sceneName {
   SKLineup *lineup = [self.lineupDict objectForKey:sceneName];
-  UIScrollView *tableView = lineup.scrollView;
 
   [self lineupWillHide:lineup];
 
   [lineup prepareToHide];
-  
-  [self.recycledScrollViews addObject:tableView];
-  [self.usedScrollViews removeObject:tableView];
 
   [self lineupDidHide:lineup];
 }
@@ -156,27 +149,6 @@ NSString * const SKItemBottomVerticalMarginKey = @"SKItemBottomVerticalMarginKey
 
 - (SKLineup *)lineupWithName:(NSString *)name {
   return [self.lineupDict objectForKey:name];
-}
-
-#pragma mark - SKLayoutSceneDelegate
-- (UIScrollView*)scrollViewForLineup:(SKLineup *)scene {
-  if (scene.scrollView) {
-    return scene.scrollView;
-  }
-
-  UIScrollView *scrollView = [self.recycledScrollViews anyObject];
-  
-  if (scrollView == nil) {
-    scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
-    [self.usedScrollViews addObject:scrollView];
-  } else {
-    [self.usedScrollViews addObject:scrollView];
-    [self.recycledScrollViews removeObject:scrollView];
-  }
-  
-  return scrollView;
 }
 
 @end
